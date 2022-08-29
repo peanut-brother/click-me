@@ -60,6 +60,18 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
+  void _decrementCounter() {
+    setState(() {
+      if (_counter > 0) {
+      _counter--;
+    }
+    });
+  }
+  void _resetCounter() {
+    setState(() {
+      _counter = 0;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,22 +105,55 @@ class _MyHomePageState extends State<MyHomePage> {
           // center the children vertically; the main axis here is the vertical
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+          children: [
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const Text(
+                    'Current font size:',
+                  ),
+                  Text(
+                    '$_counter',
+                    style: TextStyle(fontSize: _counter.toDouble()),
+                  ),
+                  
+                ],
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      onPressed: _incrementCounter,
+                      child: const Icon(Icons.exposure_plus_1),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                    onPressed: _decrementCounter,
+                    child: const Icon(Icons.exposure_minus_1),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                    onPressed: _resetCounter,
+                    child: const Icon(Icons.exposure_zero),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
